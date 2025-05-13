@@ -1,0 +1,16 @@
+{% extends 'ads/base.html' %}
+{% block title %}Мои предложения{% endblock %}
+{% block content %}
+  <h2>Предложения обмена</h2>
+  {% for proposal in proposals %}
+      <div>
+          <p>Ваше объявление: {{ proposal.ad_sender.title }}</p>
+          <p>Объявление получателя: {{ proposal.ad_receiver.title }}</p>
+          <p>Комментарий: {{ proposal.comment }}</p>
+          <p>Статус: {{ proposal.status }}</p>
+          <p>Дата: {{ proposal.created_at }}</p>
+      </div>
+  {% empty %}
+      <p>Предложений пока нет.</p>
+  {% endfor %}
+{% endblock %}

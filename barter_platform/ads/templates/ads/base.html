@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Обмен вещами{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'ads:list_ads' %}">Платформа обмена вещами</a></h1>
+        <nav>
+            {% if user.is_authenticated %}
+                Привет, {{ user.username }} |
+                <a href="{% url 'ads:create_ad' %}">Новое объявление</a> |
+                <a href="{% url 'accounts:logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Войти</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

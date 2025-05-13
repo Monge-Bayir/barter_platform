@@ -1,0 +1,25 @@
+{% extends 'ads/base.html' %}
+{% block title %}{{ ad.title }}{% endblock %}
+{% block content %}
+  <h2>{{ ad.title }}</h2>
+  <p>{{ ad.description }}</p>
+  <p>Категория: {{ ad.category }}</p>
+  <p>Состояние: {{ ad.condition }}</p>
+  <p>Дата публикации: {{ ad.created_at }}</p>
+  {% if ad.image_url %}
+      <img src="{{ ad.image_url }}" alt="Изображение" width="300">
+  {% endif %}
+
+  {% if user == ad.user %}
+      <a href="{% url 'ads:edit_ad' ad.id %}">Редактировать</a>
+      <a href="{% url 'ads:delete_ad' ad.id %}">Удалить</a>
+  {% endif %}
+
+  <hr>
+  <h3>Предложить обмен</h3>
+  <form method="post" action="{% url 'ads:create_proposal' ad.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Отправить предложение</button>
+  </form>
+{% endblock %}

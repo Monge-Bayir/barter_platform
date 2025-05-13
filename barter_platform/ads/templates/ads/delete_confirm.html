@@ -1,0 +1,10 @@
+{% extends 'ads/base.html' %}
+{% block title %}Удалить объявление{% endblock %}
+{% block content %}
+  <h2>Вы уверены, что хотите удалить "{{ ad.title }}"?</h2>
+  <form method="post">
+      {% csrf_token %}
+      <button type="submit">Удалить</button>
+      <a href="{% url 'ads:ad_detail' ad.id %}">Отмена</a>
+  </form>
+{% endblock %}
