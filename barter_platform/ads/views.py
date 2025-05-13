@@ -79,7 +79,6 @@ def create_proposal(request, pk):
         form = ExchangeProposalForm(request.POST)
         if form.is_valid():
             proposal = form.save(commit=False)
-            # Выбор объявления отправителя должен быть реализацией выбора пользователя из своих объявлений
             sender_ads = Ad.objects.filter(user=request.user)
             if not sender_ads.exists():
                 return render(request, 'ads/ad_detail.html', {
@@ -87,7 +86,7 @@ def create_proposal(request, pk):
                     'form': form,
                     'error': 'У вас нет объявлений для обмена.'
                 })
-            proposal.ad_sender = sender_ads.first()  # Упростим: берется первое объявление
+            proposal.ad_sender = sender_ads.first()
             proposal.ad_receiver = ad_receiver
             proposal.save()
             return redirect('ads:list_ads')
